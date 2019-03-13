@@ -1,0 +1,6 @@
+*.pyc
+*.tsp
+*.o
+v-opt.out
+*.dSYM
+output/*
