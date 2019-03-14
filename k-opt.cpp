@@ -41,12 +41,25 @@ int main(int argc, const char** argv)
     point_quadtree::initialize_points(root, morton_keys, domain);
 
 
-    auto swap {solver::find_forward_swap(tour, root)};
-    while (not swap.empty())
+    bool improved {false};
+    do
     {
-        tour.forward_swap(swap, false);
-        swap = solver::find_forward_swap(tour, root);
-    }
+        improved = false;
+
+        auto swap = solver::find_forward_swap(tour, root);
+        if (not swap.empty())
+        {
+            tour.forward_swap(swap, false);
+            improved = true;
+        }
+
+        swap = solver::find_forward_swap_ab(tour, root);
+        if (not swap.empty())
+        {
+            tour.forward_swap(swap, true);
+            improved = true;
+        }
+    } while (improved);
     std::cout << "final length: " << tour.length() << std::endl;
     tour.validate();
     return 0;

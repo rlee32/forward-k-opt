@@ -116,24 +116,31 @@ std::vector<primitives::point_id_t> Tour::order() const
 
 void Tour::forward_swap(const std::vector<primitives::point_id_t> swap, bool cyclic_first)
 {
+    // Use of prev() should precede use of break_adjacency().
+    primitives::point_id_t last {prev(swap.front())};
+    if (cyclic_first)
+    {
+        last = m_next[swap.front()];
+    }
     std::vector<primitives::point_id_t> prevs;
     auto it = ++std::cbegin(swap);
     while (it != std::cend(swap))
     {
         prevs.push_back(prev(*it));
-        break_adjacency(prevs.back(), *it);
         ++it;
     }
-    primitives::point_id_t last {constants::invalid_point};
+    // for each point p in swap, edge (p, prev(p)) is deleted.
+    for (size_t i {1}; i < swap.size(); ++i)
+    {
+        break_adjacency(prevs[i - 1], swap[i]);
+    }
     if (cyclic_first)
     {
         break_adjacency(swap.front());
-        last = m_next[swap.front()];
     }
     else
     {
-        last = prev(swap.front());
-        break_adjacency(last, swap.front());
+        break_adjacency(swap.front(), last);
     }
     create_adjacency(swap[0], swap[1]);
     for (size_t i {2}; i < swap.size(); ++i)
