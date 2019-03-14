@@ -36,9 +36,12 @@ inline bool find_forward_swap(Tour& tour
         swap.push_back(p);
         const auto new_start {tour.prev(p)};
         const auto closing_length {tour.length(global_swap_end, new_start)};
-        if (not restrict_even_removals or (swap.size() & 1) == 1)
+        const bool improving {removed_length + deletion
+            > closing_length + addition + added_length};
+        const bool odd_swap_size {(swap.size() & 1) == 1};
+        if (not restrict_even_removals or odd_swap_size)
         {
-            if (removed_length + deletion > closing_length + addition + added_length)
+            if (improving)
             {
                 return true;
             }
