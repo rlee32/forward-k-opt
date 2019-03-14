@@ -1,6 +1,6 @@
 *.pyc
 *.tsp
 *.o
-v-opt.out
+k-opt.out
 *.dSYM
 output/*
