@@ -5,7 +5,7 @@
 #include "point_quadtree/Node.h"
 #include "point_quadtree/morton_keys.h"
 #include "point_quadtree/point_quadtree.h"
-#include "solver.h"
+#include "forward.h"
 
 #include <iostream>
 
@@ -46,14 +46,14 @@ int main(int argc, const char** argv)
     {
         improved = false;
 
-        auto swap = solver::find_forward_swap(tour, root);
+        auto swap = forward::find_forward_swap(tour, root);
         if (not swap.empty())
         {
             tour.forward_swap(swap, false);
             improved = true;
         }
 
-        swap = solver::find_forward_swap_ab(tour, root);
+        swap = forward::find_forward_swap_ab(tour, root);
         if (not swap.empty())
         {
             tour.forward_swap(swap, true);

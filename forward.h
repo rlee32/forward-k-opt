@@ -5,7 +5,7 @@
 #include "point_quadtree/Node.h"
 #include "primitives.h"
 
-namespace solver {
+namespace forward {
 
 // Returns true if "swap" is improving.
 inline bool find_forward_swap(Tour& tour
@@ -174,4 +174,4 @@ inline std::vector<primitives::point_id_t> find_forward_swap_ab(Tour& tour
     return {};
 }
 
-} // namespace solver
+} // namespace forward
