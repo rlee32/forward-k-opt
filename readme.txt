@@ -10,6 +10,10 @@ one addition and one deletion of edges that occur at a common point.
 LK looks directly for this feature instead of trying expensive k-opt combinations
 in the typical naive manner.
 
+This repo only implements "forward swaps", which are a subset of typical acceptable LK/LKH moves.
+Removed edges must occur in traversal order. Candidates for removal are limited to edges coming
+"after" (in terms of traversal order) the most recently removed edge.
+
 Compilation:
 1. Make sure "CXX" in "makefile" is set to the desired compiler.
 2. Run "make".
