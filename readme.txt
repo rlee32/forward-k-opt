@@ -32,6 +32,6 @@ Style notes:
 
 TODO:
 1. Check if output directory exists before writing out paths to file (currently silently fails).
-
+2. Direction of tour traversal affects the sequence of search boxes; implement search in both tour traversal directions.
 
 
