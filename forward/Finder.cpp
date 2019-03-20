@@ -6,6 +6,7 @@ const std::vector<primitives::point_id_t>& Finder::find_best()
 {
     m_best_swap.clear();
     m_best_improvement = 0;
+    m_max_search_depth = 0;
     find_forward_swap();
     find_forward_swap_ab();
     return m_best_swap;
@@ -31,6 +32,7 @@ void Finder::find_forward_swap(const primitives::point_id_t edge_start
             continue;
         }
         m_current_swap.push_back(p);
+        m_max_search_depth = std::max(m_current_swap.size(), m_max_search_depth);
         const auto new_start {m_tour.prev(p)};
         const auto closing_remove {m_tour.length(new_start)};
         const auto total_remove {removed_length + remove + closing_remove};

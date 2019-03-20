@@ -30,6 +30,7 @@ public:
     const std::vector<primitives::point_id_t>& find_best();
     const std::vector<primitives::point_id_t>& best() const { return m_best_swap; }
     bool restrict_even_best() const { return m_restrict_even_best; }
+    size_t max_search_depth() const { return m_max_search_depth; }
 
 private:
     const point_quadtree::Node& m_root;
@@ -40,6 +41,7 @@ private:
     std::vector<primitives::point_id_t> m_best_swap;
     primitives::length_t m_best_improvement {0};
     bool m_restrict_even_best {false};
+    size_t m_max_search_depth {0};
 
     primitives::point_id_t m_swap_start {constants::invalid_point};
     primitives::point_id_t m_swap_end {constants::invalid_point};

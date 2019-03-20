@@ -43,6 +43,7 @@ int main(int argc, const char** argv)
     forward::Finder finder(root, tour);
     while (finder.find_best().size() > 0)
     {
+        std::cout << "best k, max search depth: " << finder.best().size() << ", " << finder.max_search_depth() << std::endl;
         tour.forward_swap(finder.best(), finder.restrict_even_best());
     }
     std::cout << "final length: " << tour.length() << std::endl;
