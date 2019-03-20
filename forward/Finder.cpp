@@ -17,9 +17,14 @@ void Finder::find_forward_swap(const primitives::point_id_t edge_start
     , const primitives::length_t added_length)
 {
     std::vector<primitives::point_id_t> points;
-    m_root.get_points(edge_start, m_tour.search_box_next(edge_start), points);
-    const auto minimum_sequence {m_tour.sequence(edge_start, m_swap_start) + 2};
+    const auto length_margin {removed_length - added_length};
     const auto remove {m_tour.length(edge_start)};
+    const auto search_box
+    {
+        m_tour.search_box(edge_start, remove + length_margin + 1)
+    };
+    m_root.get_points(edge_start, search_box, points);
+    const auto minimum_sequence {m_tour.sequence(edge_start, m_swap_start) + 2};
     for (auto p : points)
     {
         if (m_tour.sequence(p, m_swap_start) < minimum_sequence)
@@ -113,7 +118,6 @@ void Finder::find_forward_swap_ab()
     {
         // option 2
         std::vector<primitives::point_id_t> points;
-        // TODO: search box radius for total gain
         m_root.get_points(i, m_tour.search_box_next(i), points);
         m_swap_start = i;
         m_swap_end = m_tour.next(i);
