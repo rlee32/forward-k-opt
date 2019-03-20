@@ -27,17 +27,17 @@ inline bool find_forward_swap(Tour& tour
         {
             continue;
         }
-        auto addition {tour.length(p, edge_start)};
-        auto deletion {tour.length(edge_start)};
-        if (addition >= deletion)
+        const auto addition {tour.length(p, edge_start)};
+        const auto removal {tour.length(edge_start)};
+        if (addition >= removal)
         {
             continue;
         }
         swap.push_back(p);
         const auto new_start {tour.prev(p)};
         const auto closing_length {tour.length(global_swap_end, new_start)};
-        const bool improving {removed_length + deletion
-            > closing_length + addition + added_length};
+        const bool improving {removed_length + removal + tour.length(new_start)
+            > closing_length + added_length + addition};
         const bool odd_swap_size {(swap.size() & 1) == 1};
         if (not restrict_even_removals or odd_swap_size)
         {
@@ -48,7 +48,7 @@ inline bool find_forward_swap(Tour& tour
         }
         if (find_forward_swap(tour, root, global_swap_start, global_swap_end
             , new_start
-            , removed_length + deletion
+            , removed_length + removal
             , added_length + addition
             , swap
             , restrict_even_removals))
