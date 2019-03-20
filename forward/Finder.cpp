@@ -27,7 +27,7 @@ void Finder::find_forward_swap(const primitives::point_id_t edge_start
             continue;
         }
         const auto add {m_tour.length(p, edge_start)};
-        if (add >= remove)
+        if (added_length + add >= removed_length + remove)
         {
             continue;
         }
@@ -56,6 +56,7 @@ void Finder::find_forward_swap(const primitives::point_id_t edge_start
 
 void Finder::find_forward_swap()
 {
+    m_restrict_even = false;
     constexpr primitives::point_id_t start {0};
     primitives::point_id_t i {start};
     m_current_swap.clear();
@@ -90,7 +91,6 @@ void Finder::find_forward_swap()
             {
                 check_best(total_remove - total_add);
             }
-            m_restrict_even = false;
             find_forward_swap(new_start, remove, add);
             m_current_swap.pop_back();
         }
@@ -105,6 +105,7 @@ void Finder::find_forward_swap()
 //  (e.g. a 2-opt cannot be performed).
 void Finder::find_forward_swap_ab()
 {
+    m_restrict_even = true;
     constexpr primitives::point_id_t start {0};
     primitives::point_id_t i {start};
     m_current_swap.clear();
@@ -130,7 +131,6 @@ void Finder::find_forward_swap_ab()
                 continue;
             }
             m_current_swap.push_back(p);
-            m_restrict_even = true;
             const auto new_start {m_tour.prev(p)};
             find_forward_swap(new_start, remove, add);
             m_current_swap.pop_back();

@@ -43,8 +43,17 @@ int main(int argc, const char** argv)
     forward::Finder finder(root, tour);
     while (finder.find_best().size() > 0)
     {
-        std::cout << "best k, max search depth: " << finder.best().size() << ", " << finder.max_search_depth() << std::endl;
+        std::cout << "best k, max search depth, restrict even: "
+            << finder.best().size()
+            << ", " << finder.max_search_depth()
+            << ", " << finder.restrict_even_best()
+            << std::endl;
         tour.forward_swap(finder.best(), finder.restrict_even_best());
+        if (constants::write_best)
+        {
+            fileio::write_ordered_points(tour.order()
+                , "./saves/test_" + std::to_string(tour.size()) + "_" + std::to_string(tour.length()) + ".txt");
+        }
     }
     std::cout << "final length: " << tour.length() << std::endl;
     tour.validate();

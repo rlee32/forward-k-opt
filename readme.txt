@@ -16,7 +16,7 @@ Removed edges must occur in traversal order. Candidates for removal are limited 
 
 Warning: this implementation will take a long time per iteration for bad tours,
 as the search radius is dynamic and dependent on current-tour segment lengths,
-and the best improvment is found.
+and the best improvement is found.
 
 Compilation:
 1. Make sure "CXX" in "makefile" is set to the desired compiler.
