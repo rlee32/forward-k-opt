@@ -2,10 +2,13 @@
 
 namespace forward {
 
-void Finder::find_best()
+const std::vector<primitives::point_id_t>& Finder::find_best()
 {
+    m_best_swap.clear();
+    m_best_improvement = 0;
     find_forward_swap();
     find_forward_swap_ab();
+    return m_best_swap;
 }
 
 void Finder::find_forward_swap(const primitives::point_id_t edge_start

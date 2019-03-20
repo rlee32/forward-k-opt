@@ -5,7 +5,7 @@
 #include "point_quadtree/Node.h"
 #include "point_quadtree/morton_keys.h"
 #include "point_quadtree/point_quadtree.h"
-#include "forward/forward.h"
+#include "forward/Finder.h"
 
 #include <iostream>
 
@@ -40,26 +40,11 @@ int main(int argc, const char** argv)
     point_quadtree::Node root(box);
     point_quadtree::initialize_points(root, morton_keys, domain);
 
-
-    bool improved {false};
-    do
+    forward::Finder finder(root, tour);
+    while (finder.find_best().size() > 0)
     {
-        improved = false;
-
-        auto swap = forward::find_forward_swap(tour, root);
-        if (not swap.empty())
-        {
-            tour.forward_swap(swap, false);
-            improved = true;
-        }
-
-        swap = forward::find_forward_swap_ab(tour, root);
-        if (not swap.empty())
-        {
-            tour.forward_swap(swap, true);
-            improved = true;
-        }
-    } while (improved);
+        tour.forward_swap(finder.best(), finder.restrict_even_best());
+    }
     std::cout << "final length: " << tour.length() << std::endl;
     tour.validate();
     return 0;
