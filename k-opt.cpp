@@ -5,7 +5,7 @@
 #include "point_quadtree/Node.h"
 #include "point_quadtree/morton_keys.h"
 #include "point_quadtree/point_quadtree.h"
-#include "forward.h"
+#include "forward/forward.h"
 
 #include <iostream>
 
