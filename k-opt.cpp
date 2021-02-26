@@ -26,7 +26,7 @@ int main(int argc, const char** argv)
     // Distance calculation.
     point_quadtree::Domain domain(x, y);
     LengthMap length_map(x, y);
-    Tour tour(&domain, initial_tour, &length_map);
+    Tour tour(initial_tour, &length_map);
     std::cout << "Initial tour length: " << tour.length() << std::endl;
 
     // Quad tree.

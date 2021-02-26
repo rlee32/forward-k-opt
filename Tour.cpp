@@ -1,10 +1,8 @@
 #include "Tour.h"
 
-Tour::Tour(const point_quadtree::Domain* domain
-    , const std::vector<primitives::point_id_t>& initial_tour
+Tour::Tour(const std::vector<primitives::point_id_t>& initial_tour
     , LengthMap* length_map)
-: m_domain(domain)
-, m_length_map(length_map)
+: m_length_map(length_map)
 , m_adjacents(initial_tour.size(), {constants::invalid_point, constants::invalid_point})
 , m_next(initial_tour.size(), constants::invalid_point)
 , m_sequence(initial_tour.size(), constants::invalid_point)

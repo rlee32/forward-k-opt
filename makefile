@@ -1,4 +1,4 @@
-CXX = g++-8
+CXX = g++
 CXX_FLAGS = -std=c++17 # important flags.
 CXX_FLAGS += -Wuninitialized -Wall -Wextra -Werror -pedantic -Wfatal-errors # source code quality.
 CXX_FLAGS += -O3 -ffast-math # "production" version.

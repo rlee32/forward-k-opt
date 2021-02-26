@@ -11,13 +11,10 @@
 #include <iostream>
 #include <vector>
 
-class Tour
-{
+class Tour {
     using Adjacents = std::array<primitives::point_id_t, 2>;
 public:
-    Tour(const point_quadtree::Domain* domain
-        , const std::vector<primitives::point_id_t>& initial_tour
-        , LengthMap*);
+    Tour(const std::vector<primitives::point_id_t>& initial_tour, LengthMap*);
 
     void forward_swap(const std::vector<primitives::point_id_t> swap, bool cyclic_first);
     void move(primitives::point_id_t a, primitives::point_id_t b);
@@ -49,7 +46,6 @@ public:
     void validate() const;
 
 private:
-    const point_quadtree::Domain* m_domain {nullptr};
     LengthMap* m_length_map {nullptr};
     std::vector<Adjacents> m_adjacents;
     std::vector<primitives::point_id_t> m_next;
